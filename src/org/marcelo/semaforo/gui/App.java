@@ -3,8 +3,7 @@ package org.marcelo.semaforo.gui;
 import java.awt.Graphics;
 import java.awt.Color;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class App extends javax.swing.JFrame {
 
@@ -13,8 +12,36 @@ public class App extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Semaforo con hilo");
         this.setResizable(false);
+        txtAmarrillo.setEnabled(false);
+        txtRojo.setEnabled(false);
+        txtVerde.setEnabled(false);
+ 
+        
+        
+        
+        paint(lblSemRojo.getGraphics());
+
+        
+        
 
     }
+    
+        
+        public void paint(Graphics g){
+            super.paintComponents(g);
+            g.fillOval(25, 25, 30, 30);
+            g.setColor(Color.yellow);
+            
+            g.fillOval(25, 110, 30, 30);
+            g.setColor(Color.green);
+            
+            g.fillOval(25, 245, 30, 30);
+            g.setColor(Color.red);
+            
+        }
+
+    
+
 
     private class HiloControlador extends Thread {
 
@@ -22,88 +49,75 @@ public class App extends javax.swing.JFrame {
 
         @Override
         public void run() {
-            while(true){
-                
-            
-            
-            cont=0;
-            while (true) {
-                
-
-                if (cont == 6) {
-                    lblSemVerde.setText(String.valueOf(0));
-                    break;
-                }
-
-                cont++;
-
-                lblSemVerde.setText(String.valueOf(cont));
-                try {
-
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-
-                }
-
-            }
-
-            cont = 0;
-
             while (true) {
 
-                if (cont == 1) {
-                    lblSemAmarillo.setText(String.valueOf(0));
-                    break;
-                }
+                cont = 0;
+                while (true) {
 
-                cont++;
+                    if (cont == 6) {
+                        lblSemVerde.setText(String.valueOf(0));
+                        break;
+                    }
 
-                lblSemAmarillo.setText(String.valueOf(cont));
-                try {
+                    cont++;
 
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
+                    lblSemVerde.setText(String.valueOf(cont));
+                    try {
 
-                }
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
 
-            }
-
-            cont=0;
-            
-            while (true) {
-
-                if (cont == 5) {
-                    lblSemRojo.setText(String.valueOf(0));
-                    break;
-                }
-
-                cont++;
-
-                lblSemRojo.setText(String.valueOf(cont));
-                try {
-
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
+                    }
 
                 }
 
-            }
+                cont = 0;
+
+                while (true) {
+
+                    if (cont == 1) {
+                        lblSemAmarillo.setText(String.valueOf(0));
+                        break;
+                    }
+
+                    cont++;
+
+                    lblSemAmarillo.setText(String.valueOf(cont));
+                    try {
+
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+
+                    }
+
+                }
+
+                cont = 0;
+
+                while (true) {
+
+                    if (cont == 5) {
+                        lblSemRojo.setText(String.valueOf(0));
+                        break;
+                    }
+
+                    cont++;
+
+                    lblSemRojo.setText(String.valueOf(cont));
+                    try {
+
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ex) {
+
+                    }
+
+                }
             }
 
         }
 
     }
 
-//    public void paint(Graphics g) {
-//        try {
-//            g.setColor(Color.GREEN);
-//            g.drawOval(50, 50, 50, 50);
-//
-//        } catch (Exception e) {
-//            //haz nada
-//        }
-//
-//    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -115,7 +129,6 @@ public class App extends javax.swing.JFrame {
         lblRojo = new javax.swing.JLabel();
         lblAmarillo = new javax.swing.JLabel();
         lblVerde = new javax.swing.JLabel();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
         lblSemRojo = new javax.swing.JLabel();
         lblSemAmarillo = new javax.swing.JLabel();
         lblSemVerde = new javax.swing.JLabel();
@@ -141,80 +154,72 @@ public class App extends javax.swing.JFrame {
 
         lblVerde.setText("seg");
 
-        lblSemRojo.setText("Rojo");
+        lblSemRojo.setBackground(new java.awt.Color(204, 0, 0));
+        lblSemRojo.setForeground(new java.awt.Color(255, 0, 0));
+        lblSemRojo.setText("R");
 
-        lblSemAmarillo.setText("Amarillo");
+        lblSemAmarillo.setBackground(new java.awt.Color(255, 255, 0));
+        lblSemAmarillo.setText("A");
 
-        lblSemVerde.setText("Verde");
-
-        jLayeredPane1.setLayer(lblSemRojo, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(lblSemAmarillo, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(lblSemVerde, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(lblSemVerde)
-                    .addComponent(lblSemAmarillo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblSemRojo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(40, Short.MAX_VALUE))
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addComponent(lblSemRojo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblSemAmarillo)
-                .addGap(69, 69, 69)
-                .addComponent(lblSemVerde))
-        );
+        lblSemVerde.setBackground(new java.awt.Color(0, 255, 0));
+        lblSemVerde.setText("V");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtVerde, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                    .addComponent(txtAmarrillo)
-                    .addComponent(txtRojo))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblRojo)
-                    .addComponent(lblAmarillo)
-                    .addComponent(lblVerde))
-                .addContainerGap(133, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(121, 121, 121)
                 .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblSemAmarillo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblSemRojo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtRojo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblRojo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblSemVerde)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtVerde, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblVerde))
+                            .addComponent(txtAmarrillo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(5, 5, 5)
+                .addComponent(lblAmarillo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRojo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblRojo)
+                    .addComponent(lblSemRojo))
+                .addGap(49, 49, 49)
+                .addComponent(lblSemAmarillo)
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAmarrillo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAmarillo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtRojo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblRojo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtAmarrillo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblAmarillo))
-                        .addGap(58, 58, 58)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtVerde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblVerde)))
-                    .addComponent(jLayeredPane1))
-                .addGap(18, 18, 18)
+                            .addComponent(lblVerde))
+                        .addGap(24, 24, 24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lblSemVerde)
+                        .addGap(36, 36, 36)))
                 .addComponent(btnIniciar)
                 .addContainerGap())
         );
@@ -223,7 +228,7 @@ public class App extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-       
+
         btnIniciar.setEnabled(false);
         HiloControlador hc = new HiloControlador();
         hc.start();
@@ -276,7 +281,6 @@ public class App extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciar;
-    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLabel lblAmarillo;
     private javax.swing.JLabel lblRojo;
     private javax.swing.JLabel lblSemAmarillo;

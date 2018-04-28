@@ -3,23 +3,94 @@ package org.marcelo.semaforo.gui;
 import java.awt.Graphics;
 import java.awt.Color;
 
-import controlaHilos.ControladorHilo;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class App extends javax.swing.JFrame {
 
-    private ControladorHilo c;
-    
     public App() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Semaforo con hilo");
-        c = new ControladorHilo(0,6,1,5);
-       
-       
-     
-        
+        this.setResizable(false);
+
+    }
+
+    private class HiloControlador extends Thread {
+
+        private int cont;
+
+        @Override
+        public void run() {
+            while(true){
+                
+            
+            
+            cont=0;
+            while (true) {
+                
+
+                if (cont == 6) {
+                    lblSemVerde.setText(String.valueOf(0));
+                    break;
+                }
+
+                cont++;
+
+                lblSemVerde.setText(String.valueOf(cont));
+                try {
+
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+
+                }
+
+            }
+
+            cont = 0;
+
+            while (true) {
+
+                if (cont == 1) {
+                    lblSemAmarillo.setText(String.valueOf(0));
+                    break;
+                }
+
+                cont++;
+
+                lblSemAmarillo.setText(String.valueOf(cont));
+                try {
+
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+
+                }
+
+            }
+
+            cont=0;
+            
+            while (true) {
+
+                if (cont == 5) {
+                    lblSemRojo.setText(String.valueOf(0));
+                    break;
+                }
+
+                cont++;
+
+                lblSemRojo.setText(String.valueOf(cont));
+                try {
+
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+
+                }
+
+            }
+            }
+
+        }
 
     }
 
@@ -33,7 +104,6 @@ public class App extends javax.swing.JFrame {
 //        }
 //
 //    }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -153,36 +223,11 @@ public class App extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
-        
-        
+       
         btnIniciar.setEnabled(false);
-        c.start();
-        for (int i = c.getContador(); i < c.getLimiteSegVerde(); i++) {
-            lblSemVerde.setText(String.valueOf(c.getContador()));
-            try {
-                c.sleep(c.getContador()*1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        }
-        lblSemVerde.setText("0");
-        
-        
-        for (int i = c.getContador(); i < c.getLimiteSegAmarillo(); i++) {
-            lblSemAmarillo.setText(String.valueOf(c.getContador()));
-        }
-        lblSemAmarillo.setText("0");
-        
-        for (int i = c.getContador(); i < c.getLimiteSegRojo(); i++) {
-            lblSemRojo.setText(String.valueOf(c.getContador()));
-        }
-        lblSemRojo.setText("0");
-        
-        
-        
-        
-        
+        HiloControlador hc = new HiloControlador();
+        hc.start();
+
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     /**
@@ -223,9 +268,7 @@ public class App extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-              new App().setVisible(true);
-
-                
+                new App().setVisible(true);
 
             }
         });

@@ -3,45 +3,57 @@ package org.marcelo.semaforo.gui;
 import java.awt.Graphics;
 import java.awt.Color;
 
-
-
 public class App extends javax.swing.JFrame {
 
     public App() {
         initComponents();
+        inicializarCaracterisitcasDeComponentes();
+
+    }
+
+    public void inicializarCaracterisitcasDeComponentes() {
         this.setLocationRelativeTo(null);
-        this.setTitle("Semaforo con hilo");
+        this.setTitle("Semaforo");
         this.setResizable(false);
         txtAmarrillo.setEnabled(false);
         txtRojo.setEnabled(false);
         txtVerde.setEnabled(false);
- 
-        
-        
-        
-        paint(lblSemRojo.getGraphics());
 
-        
-        
+        txtSemR.setBackground(Color.red);
+        txtSemA.setBackground(Color.yellow);
+        txtSemV.setBackground(Color.green);
+        txtSemR.setEditable(false);
+        txtSemA.setEditable(false);
+        txtSemV.setEditable(false);
+
+        paint(txtSemV.getGraphics());
 
     }
-    
-        
-        public void paint(Graphics g){
-            super.paintComponents(g);
-            g.fillOval(25, 25, 30, 30);
-            g.setColor(Color.yellow);
-            
-            g.fillOval(25, 110, 30, 30);
-            g.setColor(Color.green);
-            
-            g.fillOval(25, 245, 30, 30);
-            g.setColor(Color.red);
-            
-        }
 
-    
+    public void paint(Graphics g) {
+        super.paintComponents(g);
+        g.fillOval(25, 15, 2, 2);
+        g.setColor(Color.red);
 
+        g.fillOval(25, 50, 65, 65);
+        g.setColor(Color.yellow);
+
+        g.fillOval(25, 125, 65, 65);
+        g.setColor(Color.green);
+
+        g.fillOval(25, 245, 65, 65);
+        g.setColor(Color.black);
+
+
+        g.drawLine(20, 40, 20, 320);
+
+        g.drawLine(95, 40, 95, 320);
+
+        g.drawLine(20, 40, 95, 40);
+
+        g.drawLine(95, 320, 20, 320);
+
+    }
 
     private class HiloControlador extends Thread {
 
@@ -51,17 +63,17 @@ public class App extends javax.swing.JFrame {
         public void run() {
             while (true) {
 
-                cont = 0;
+                cont = 7;
                 while (true) {
 
-                    if (cont == 6) {
-                        lblSemVerde.setText(String.valueOf(0));
+                    if (cont == 0) {
+                        txtSemV.setText(String.valueOf(0));
                         break;
                     }
 
-                    cont++;
+                    cont -= 1;
 
-                    lblSemVerde.setText(String.valueOf(cont));
+                    txtSemV.setText(String.valueOf(cont));
                     try {
 
                         Thread.sleep(1000);
@@ -71,18 +83,18 @@ public class App extends javax.swing.JFrame {
 
                 }
 
-                cont = 0;
+                cont = 2;
 
                 while (true) {
 
-                    if (cont == 1) {
-                        lblSemAmarillo.setText(String.valueOf(0));
+                    if (cont == 0) {
+                        txtSemA.setText(String.valueOf(0));
                         break;
                     }
 
-                    cont++;
+                    cont -= 1;
 
-                    lblSemAmarillo.setText(String.valueOf(cont));
+                    txtSemA.setText(String.valueOf(cont));
                     try {
 
                         Thread.sleep(1000);
@@ -92,18 +104,19 @@ public class App extends javax.swing.JFrame {
 
                 }
 
-                cont = 0;
+                cont = 6;
 
+                txtSemR.setForeground(Color.white);
                 while (true) {
 
-                    if (cont == 5) {
-                        lblSemRojo.setText(String.valueOf(0));
+                    if (cont == 0) {
+                        txtSemR.setText(String.valueOf(0));
                         break;
                     }
 
-                    cont++;
+                    cont -= 1;
 
-                    lblSemRojo.setText(String.valueOf(cont));
+                    txtSemR.setText(String.valueOf(cont));
                     try {
 
                         Thread.sleep(1000);
@@ -129,9 +142,9 @@ public class App extends javax.swing.JFrame {
         lblRojo = new javax.swing.JLabel();
         lblAmarillo = new javax.swing.JLabel();
         lblVerde = new javax.swing.JLabel();
-        lblSemRojo = new javax.swing.JLabel();
-        lblSemAmarillo = new javax.swing.JLabel();
-        lblSemVerde = new javax.swing.JLabel();
+        txtSemR = new javax.swing.JTextField();
+        txtSemA = new javax.swing.JTextField();
+        txtSemV = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -154,15 +167,21 @@ public class App extends javax.swing.JFrame {
 
         lblVerde.setText("seg");
 
-        lblSemRojo.setBackground(new java.awt.Color(204, 0, 0));
-        lblSemRojo.setForeground(new java.awt.Color(255, 0, 0));
-        lblSemRojo.setText("R");
+        txtSemR.setBackground(new java.awt.Color(255, 0, 0));
+        txtSemR.setForeground(new java.awt.Color(255, 0, 0));
+        txtSemR.setText("R");
+        txtSemR.setAutoscrolls(false);
+        txtSemR.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0), 2));
 
-        lblSemAmarillo.setBackground(new java.awt.Color(255, 255, 0));
-        lblSemAmarillo.setText("A");
+        txtSemA.setBackground(new java.awt.Color(255, 255, 0));
+        txtSemA.setText("A");
+        txtSemA.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 0), 2));
 
-        lblSemVerde.setBackground(new java.awt.Color(0, 255, 0));
-        lblSemVerde.setText("V");
+        txtSemV.setBackground(new java.awt.Color(0, 255, 0));
+        txtSemV.setForeground(new java.awt.Color(255, 255, 255));
+        txtSemV.setText("V");
+        txtSemV.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 255, 51), 2));
+        txtSemV.setCaretColor(new java.awt.Color(0, 255, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,53 +192,46 @@ public class App extends javax.swing.JFrame {
                 .addComponent(btnIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblSemAmarillo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblSemRojo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtRojo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblRojo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblSemVerde)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(41, 41, 41)
+                        .addComponent(txtSemR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtVerde, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblVerde))
-                            .addComponent(txtAmarrillo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(5, 5, 5)
-                .addComponent(lblAmarillo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtSemV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSemA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtRojo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAmarrillo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtVerde, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblRojo)
+                    .addComponent(lblAmarillo)
+                    .addComponent(lblVerde))
+                .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtRojo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblRojo)
-                    .addComponent(lblSemRojo))
-                .addGap(49, 49, 49)
-                .addComponent(lblSemAmarillo)
-                .addGap(3, 3, 3)
+                    .addComponent(txtSemR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAmarrillo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAmarillo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtVerde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblVerde))
-                        .addGap(24, 24, 24))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblSemVerde)
-                        .addGap(36, 36, 36)))
+                    .addComponent(lblAmarillo)
+                    .addComponent(txtSemA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtVerde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblVerde)
+                    .addComponent(txtSemV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
                 .addComponent(btnIniciar)
                 .addContainerGap())
         );
@@ -283,12 +295,12 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JButton btnIniciar;
     private javax.swing.JLabel lblAmarillo;
     private javax.swing.JLabel lblRojo;
-    private javax.swing.JLabel lblSemAmarillo;
-    private javax.swing.JLabel lblSemRojo;
-    private javax.swing.JLabel lblSemVerde;
     private javax.swing.JLabel lblVerde;
     private javax.swing.JTextField txtAmarrillo;
     private javax.swing.JTextField txtRojo;
+    private javax.swing.JTextField txtSemA;
+    private javax.swing.JTextField txtSemR;
+    private javax.swing.JTextField txtSemV;
     private javax.swing.JTextField txtVerde;
     // End of variables declaration//GEN-END:variables
 }
